@@ -30,6 +30,14 @@ describe Rover do
         subject.should_receive(:execute_instruction).with(instructions_set.first)
         subject.execute_instructions_set(instructions_set)
       end
+
+      it "sets initial coordinates back of instructions are wrong" do
+        initial_x        = subject.x
+        instructions_set = ["L","M","M","M"]
+
+        expect { subject.execute_instructions_set(instructions_set) }.to raise_error(LostInSpace)
+        subject.x.should == initial_x
+      end
     end
   end
 
@@ -40,7 +48,10 @@ describe Rover do
       it "should be able to spin" do
         expect { subject.send(:spin, "L") }.to change { subject.direction }.from("N").to("W")
         expect { subject.send(:spin, "L") }.to change { subject.direction }.from("W").to("S")
-        expect { subject.send(:spin, "R") }.to change { subject.direction }.from("S").to("W")
+        expect { subject.send(:spin, "L") }.to change { subject.direction }.from("S").to("E")
+        expect { subject.send(:spin, "L") }.to change { subject.direction }.from("E").to("N")
+        expect { subject.send(:spin, "L") }.to change { subject.direction }.from("N").to("W")
+        expect { subject.send(:spin, "L") }.to change { subject.direction }.from("W").to("S")
       end
     end
 

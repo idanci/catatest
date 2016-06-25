@@ -21,6 +21,9 @@ describe Expedition do
         rover.direction.should == "N"
         subject.rovers.should  == [rover]
       end
+      it "prevents deploy outside plateau" do
+        expect { subject.deploy_rover(10, 2, "N") }.to raise_error("Don't deploy rovers outside plateau!")
+      end
     end
 
     describe "#move_rover(rover, instructions_set)" do

@@ -11,7 +11,7 @@ class Expedition
   end
 
   def deploy_rover(x, y, direction, name=nil)
-    unless (1..self.x).include?(x.to_i) or (1..self.y).include?(y.to_i)
+    unless (0..self.x).include?(x.to_i) or (0..self.y).include?(y.to_i)
       raise "Don't deploy rovers outside plateau!"
     end
 

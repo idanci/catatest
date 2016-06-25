@@ -58,11 +58,16 @@ describe Expedition do
         subject.move_rover(rover, "MMRMMRMRRM")
         rover.position.should  == [5,1]
         rover.direction.should == "E"
+
+        rover = subject.deploy_rover(1, 2, "N")
+        subject.move_rover(rover, "LMLMLMLMM")
+        rover.position.should  == [1,3]
+        rover.direction.should == "N"
       end
 
       it "goes wrong" do
         rover = subject.deploy_rover(1, 2, "N")
-        expect { subject.move_rover(rover, "LMLMLMLMM") }.to raise_error(/lost in space/)
+        expect { subject.move_rover(rover, "LMMM") }.to raise_error(/lost in space/)
       end
     end
   end

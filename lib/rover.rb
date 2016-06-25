@@ -36,7 +36,7 @@ private
     else
       raise ArgumentError.new("Only following instructions are supported: 'M', 'L', 'R'")
     end
-    unless (1..playground.first.to_i).include?(x) and (1..playground.last.to_i).include?(y)
+    unless (0..playground.first.to_i).include?(x) and (0..playground.last.to_i).include?(y)
       raise LostInSpace.new("#{name} will be lost in space. Think before you ask him move outside the plateau.")
     end
   end
@@ -44,9 +44,9 @@ private
   def spin(side)
     raise ArgumentError unless SIDES.include?(side)
 
-    current_direction = DIRECTIONS.index(direction)
+    current_direction = DIRECTIONS.index(@direction)
     @direction = if side == "L"
-      DIRECTIONS[current_direction + 1]
+      DIRECTIONS[current_direction + 1] || "N"
     else
       DIRECTIONS[current_direction - 1]
     end

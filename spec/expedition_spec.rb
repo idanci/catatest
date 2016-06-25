@@ -14,7 +14,7 @@ describe Expedition do
 
     describe "#deploy_rover" do
       it "should be able to deploy a rover" do
-        rover = subject.deploy_rover(1, 2, "N", [5,5])
+        rover = subject.deploy_rover(1, 2, "N")
 
         rover.should be_a(Rover)
         rover.position.should  == [1,2]
@@ -24,7 +24,7 @@ describe Expedition do
     end
 
     describe "#move_rover(rover, instructions_set)" do
-      let(:rover) { subject.deploy_rover(1, 1, "N", [5,5]) }
+      let(:rover) { subject.deploy_rover(1, 1, "N") }
 
       it "should be able to move a rover" do
         instructions_set = "M"
@@ -54,15 +54,13 @@ describe Expedition do
     describe "Rover executes several instructions and reports its status" do
 
       it "goes well" do
-        # rover = subject.deploy_rover(3, 3, "E", [5,5])
-        # subject.move_rover(rover, "MMRMMRMRRM")
-        # rover.position.should  == [5,1]
-        # rover.direction.should == "E"
+        rover = subject.deploy_rover(3, 3, "E", [5,5])
+        subject.move_rover(rover, "MMRMMRMRRM")
+        rover.position.should  == [5,1]
+        rover.direction.should == "E"
 
         rover = subject.deploy_rover(1, 2, "N", [5,5])
         expect { subject.move_rover(rover, "LMLMLMLMM") }.to raise_error(/lost in space/)
-        # rover.position.should  == [5,1]
-        # rover.direction.should == "E"
       end
     end
   end

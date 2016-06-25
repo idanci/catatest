@@ -1,0 +1,1 @@
+class LostInSpace < StandardError ; end

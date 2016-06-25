@@ -17,9 +17,13 @@ class Rover
   end
 
   def execute_instructions_set(instructions_set)
+    initial_x, initial_y = x, y
     instructions_set.each do |instruction|
       execute_instruction(instruction)
     end
+  rescue LostInSpace => error
+    @x, @y = initial_x, initial_y
+    raise error
   end
 
 private
@@ -32,8 +36,8 @@ private
     else
       raise ArgumentError.new("Only following instructions are supported: 'M', 'L', 'R'")
     end
-    unless (1..playground.first).include?(x) and (1..playground.last).include?(y)
-      raise "#{name} is lost in space..."
+    unless (1..playground.first.to_i).include?(x) and (1..playground.last.to_i).include?(y)
+      raise LostInSpace.new("#{name} will be lost in space. Think before you ask him move outside the plateau.")
     end
   end
 

@@ -2,7 +2,7 @@ class Expedition
   attr_reader :x, :y, :rovers
 
   def initialize(x, y)
-    @x, @y  = x, y
+    @x, @y  = x.to_i, y.to_i
     @rovers = []
   end
 
@@ -11,11 +11,11 @@ class Expedition
   end
 
   def deploy_rover(x, y, direction, name=nil)
-    unless (1..self.x).include?(x) or (1..self.y).include?(y)
+    unless (1..self.x).include?(x.to_i) or (1..self.y).include?(y.to_i)
       raise "Don't deploy rovers outside plateau!"
     end
 
-    rover = Rover.new(x, y, direction, name, corner)
+    rover = Rover.new(x, y, direction, corner, name)
     @rovers << rover
     rover
   end

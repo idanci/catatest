@@ -16,16 +16,21 @@ rovers     = []
   rescue
     retry
   end
-
-  puts "Provide unstructions for the #{name} rover, use 'L', 'R' and 'M'"
-  input     = gets.chomp
-  rover     = expedition.find_rover(name)
-  expedition.move_rover(rover, input)
+  begin
+    puts "Provide instructions for the #{name} rover, use 'L', 'R' and 'M'"
+    input     = gets.chomp
+    rover     = expedition.find_rover(name)
+    expedition.move_rover(rover, input)
+  rescue LostInSpace => error
+    puts error.message
+    retry
+  end
 end
 
 expedition.rovers.each do |rover|
   puts "#{rover.position.join}#{rover.direction}"
 end
+
 
 # 5 5
 # 1 2 N

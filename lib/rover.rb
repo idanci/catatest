@@ -1,14 +1,14 @@
 class Rover
-  attr_reader :x, :y, :direction
+  attr_reader :x, :y, :direction, :name
 
   DIRECTIONS = ["N", "W", "S", "E"]
   SIDES      = ["L", "R"]
 
-  def initialize(x, y, direction)
-    raise ArgumentError unless DIRECTIONS.include?(direction)
+  def initialize(x, y, direction, name="C3PO")
+    raise ArgumentError unless DIRECTIONS.include?(direction.upcase)
 
-    @direction = direction
-    @x, @y     = x, y
+    @direction    = direction.upcase
+    @x, @y, @name = x.to_i, y.to_i, name
   end
 
   def position

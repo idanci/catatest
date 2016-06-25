@@ -8,6 +8,7 @@ describe Rover do
       subject.x.should         == 0
       subject.y.should         == 0
       subject.direction.should == "N"
+      subject.name.should      == "C3PO"
     end
   end
 

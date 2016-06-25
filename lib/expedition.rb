@@ -1,12 +1,15 @@
 class Expedition
-  attr_reader :corner
+  attr_reader :corner, :rovers
 
   def initialize(x, y)
     @corner = [x, y]
+    @rovers = []
   end
 
-  def deploy_rover(x, y, direction)
-    Rover.new(x, y, direction)
+  def deploy_rover(x, y, direction, name=nil)
+    rover = Rover.new(x, y, direction, name)
+    @rovers << rover
+    rover
   end
 
   def move_rover(rover, instructions_set)
@@ -17,5 +20,9 @@ class Expedition
     else
       raise ArgumentError.new("Please use only 'M', 'L', 'R' instructions.")
     end
+  end
+
+  def find_rover(name)
+    @rovers.detect { |rover| rover.name == name }
   end
 end

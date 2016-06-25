@@ -16,6 +16,7 @@ describe Expedition do
         rover.should be_a(Rover)
         rover.position.should  == [1,2]
         rover.direction.should == "N"
+        subject.rovers.should  == [rover]
       end
     end
     describe "#move_rover(rover, instructions_set)" do

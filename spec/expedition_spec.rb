@@ -54,12 +54,14 @@ describe Expedition do
     describe "Rover executes several instructions and reports its status" do
 
       it "goes well" do
-        rover = subject.deploy_rover(3, 3, "E", [5,5])
+        rover = subject.deploy_rover(3, 3, "E")
         subject.move_rover(rover, "MMRMMRMRRM")
         rover.position.should  == [5,1]
         rover.direction.should == "E"
+      end
 
-        rover = subject.deploy_rover(1, 2, "N", [5,5])
+      it "goes wrong" do
+        rover = subject.deploy_rover(1, 2, "N")
         expect { subject.move_rover(rover, "LMLMLMLMM") }.to raise_error(/lost in space/)
       end
     end

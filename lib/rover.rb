@@ -2,11 +2,12 @@ class Rover
   attr_reader :x, :y, :direction
 
   DIRECTIONS = ["N", "W", "S", "E"]
+  SIDES      = ["L", "R"]
 
   def initialize(x, y, direction)
     raise ArgumentError unless DIRECTIONS.include?(direction)
 
-    @direction  = direction
+    @direction = direction
     @x, @y     = x, y
   end
 
@@ -14,10 +15,20 @@ class Rover
     [x, y]
   end
 
+  def execute_instruction(instruction)
+    if instruction == "M"
+      move
+    elsif SIDES.include?(instruction)
+      spin(instruction)
+    else
+      raise ArgumentError.new("Only following instructions are supported: 'M', 'L', 'R'")
+    end
+  end
+
 private
 
   def spin(side)
-    raise ArgumentError unless ["L", "R"].include?(side)
+    raise ArgumentError unless SIDES.include?(side)
 
     current_direction = DIRECTIONS.index(direction)
     @direction = if side == "L"

@@ -17,6 +17,15 @@ describe Rover do
         subject.position.should == [0, 0]
       end
     end
+    describe "#execute_instruction" do
+      it "should move or spin depending on instruction" do
+        subject.should_receive(:move)
+        subject.execute_instruction("M")
+        subject.should_receive(:spin).with("L")
+        subject.execute_instruction("L")
+        expect { subject.execute_instruction("Z") }.to raise_error(ArgumentError)
+      end
+    end
   end
 
   context "private methods" do

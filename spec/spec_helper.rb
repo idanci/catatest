@@ -1,4 +1,3 @@
 require "rspec"
 
-require_relative "./../rover"
-require_relative "./../expedition"
+require_relative "./../lib/nasa"

@@ -10,6 +10,12 @@ class Rover
     @x, @y     = x, y
   end
 
+  def position
+    [x, y]
+  end
+
+private
+
   def spin(side)
     raise ArgumentError unless ["L", "R"].include?(side)
 
@@ -32,9 +38,5 @@ class Rover
     when "E"
       @x += 1
     end
-  end
-
-  def position
-    [x, y]
   end
 end

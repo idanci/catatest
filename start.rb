@@ -6,12 +6,16 @@ coords = gets.chomp.scan(/\d/)[0..1]
 expedition = Expedition.new(*coords)
 rovers     = []
 
-["first", "second"].each do |name|
-  puts "Deploy #{name} rover, input it's coordinates and direction"
-  input     = gets.chomp
-  coords    = input.scan(/\d/)[0..1]
-  direction = input.scan(/[#{Rover::DIRECTIONS.join}]/i).last
-  expedition.deploy_rover(coords.first, coords.last, direction, name)
+["R2D2", "Curiosity"].each do |name|
+  begin
+    puts "Deploy #{name} rover, input it's coordinates and direction"
+    input     = gets.chomp
+    coords    = input.scan(/\d/)[0..1]
+    direction = input.scan(/[#{Rover::DIRECTIONS.join}]/i).last
+    expedition.deploy_rover(coords.first, coords.last, direction, name)
+  rescue
+    retry
+  end
 
   puts "Provide unstructions for the #{name} rover, use 'L', 'R' and 'M'"
   input     = gets.chomp

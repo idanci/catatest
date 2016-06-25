@@ -1,13 +1,14 @@
 class Rover
-  attr_reader :x, :y, :direction, :name
+  attr_reader :x, :y, :direction, :playground, :name
 
   DIRECTIONS = ["N", "W", "S", "E"]
   SIDES      = ["L", "R"]
 
-  def initialize(x, y, direction, name="C3PO")
+  def initialize(x, y, direction, playground, name="C3PO")
     raise ArgumentError unless DIRECTIONS.include?(direction.upcase)
 
     @direction    = direction.upcase
+    @playground   = playground
     @x, @y, @name = x.to_i, y.to_i, name
   end
 
@@ -30,6 +31,9 @@ private
       spin(instruction)
     else
       raise ArgumentError.new("Only following instructions are supported: 'M', 'L', 'R'")
+    end
+    unless (1..playground.first).include?(x) and (1..playground.last).include?(y)
+      raise "#{name} is lost in space..."
     end
   end
 

@@ -9,6 +9,8 @@ describe Rover do
   end
 
   it "should be able to spin" do
-    expect { subject.spin("L") }.to change { subject.direction }.from("N").to("E")
+    expect { subject.spin("L") }.to change { subject.direction }.from("N").to("W")
+    expect { subject.spin("L") }.to change { subject.direction }.from("W").to("S")
+    expect { subject.spin("R") }.to change { subject.direction }.from("S").to("W")
   end
 end

@@ -15,6 +15,14 @@ class Rover
     [x, y]
   end
 
+  def execute_instructions_set(instructions_set)
+    instructions_set.each do |instruction|
+      execute_instruction(instruction)
+    end
+  end
+
+private
+
   def execute_instruction(instruction)
     if instruction == "M"
       move
@@ -24,8 +32,6 @@ class Rover
       raise ArgumentError.new("Only following instructions are supported: 'M', 'L', 'R'")
     end
   end
-
-private
 
   def spin(side)
     raise ArgumentError unless SIDES.include?(side)

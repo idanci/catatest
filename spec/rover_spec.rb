@@ -17,13 +17,11 @@ describe Rover do
         subject.position.should == [0, 0]
       end
     end
-    describe "#execute_instruction" do
-      it "should move or spin depending on instruction" do
-        subject.should_receive(:move)
-        subject.execute_instruction("M")
-        subject.should_receive(:spin).with("L")
-        subject.execute_instruction("L")
-        expect { subject.execute_instruction("Z") }.to raise_error(ArgumentError)
+    describe "#execute_instructions_set(instructions_set)" do
+      it "returns rover's current position" do
+        instructions_set = ["L"]
+        subject.should_receive(:execute_instruction).with(instructions_set.first)
+        subject.execute_instructions_set(instructions_set)
       end
     end
   end
@@ -42,6 +40,16 @@ describe Rover do
         expect { subject.send(:move) }.to change { subject.position }.from([0,0]).to([0,1])
         subject.send(:spin, "L")
         expect { subject.send(:move) }.to change { subject.position }.from([0,1]).to([-1,1])
+      end
+    end
+
+    describe "#execute_instruction(instruction)" do
+      it "should move or spin depending on instruction" do
+        subject.should_receive(:move)
+        subject.send(:execute_instruction, "M")
+        subject.should_receive(:spin).with("L")
+        subject.send(:execute_instruction, "L")
+        expect { subject.send(:execute_instruction, "Z") }.to raise_error(ArgumentError)
       end
     end
   end
